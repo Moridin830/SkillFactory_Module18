@@ -12,6 +12,10 @@ namespace Task2
     {
         public async void OperationGetInfo(string URL)
         {
+            StringOperations.WriteDelimiter();
+            Console.WriteLine("Запрашиваем данные...");
+            StringOperations.WriteDelimiter();
+
             var YoutubeClient = new YoutubeClient();
 
             var video = await YoutubeClient.Videos.GetAsync(URL);
@@ -23,9 +27,18 @@ namespace Task2
 
         public async void OperationDownloadVideo(string URL)
         {
+            StringOperations.WriteDelimiter();
+            Console.WriteLine("Начинаем загрузку видео...");
+            StringOperations.WriteDelimiter();
+
             var YoutubeClient = new YoutubeClient();
 
-            await YoutubeClient.Videos.DownloadAsync(URL, "video.mp4", builder => builder.SetPreset(ConversionPreset.UltraFast));
+            // Получаем адрес каталога рабочего стола текущей системы
+            string DesktopDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+
+            // Формируем адрес каталога для сохранения файла
+            string DirectoryURL = DesktopDirectory + "/" + "video.mp4";
+            await YoutubeClient.Videos.DownloadAsync(URL, DirectoryURL, builder => builder.SetPreset(ConversionPreset.UltraFast));
             Console.WriteLine($"Загрузка видео завершена");
         }
     }
