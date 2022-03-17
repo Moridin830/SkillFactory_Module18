@@ -25,10 +25,8 @@ namespace Task2
         {
             var YoutubeClient = new YoutubeClient();
 
-            await YoutubeClient.Videos.DownloadAsync(URL, "video.mp4");
+            await YoutubeClient.Videos.DownloadAsync(URL, "video.mp4", builder => builder.SetPreset(ConversionPreset.UltraFast));
             Console.WriteLine($"Загрузка видео завершена");
         }
     }
 }
-
-//, builder => builder.SetPreset(ConversionPreset.UltraFast)
